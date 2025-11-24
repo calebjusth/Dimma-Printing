@@ -1,0 +1,214 @@
+{% extends '../base/base.html' %}
+{% load static %}
+{% block title %}Dimma Printing | {{ category.name }} Articles {% endblock %}
+{% block meta_description %}Explore our latest {{ category.name }} articles and insights from Dimma Printing{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/blog_cat.css' %}">
+<br><br><br>
+<!-- Category Hero Section -->
+<section class="category-hero">
+    <div class="container">
+        <div class="category-hero-content">
+            <nav class="breadcrumb">
+                <a href="{% url 'blog:blog' %}">Blog</a>
+                <span class="separator">/</span>
+                <span class="current" >{{ category.name }}</span>
+            </nav>
+            
+            <h1 class="category-title">{{ category.name }}</h1>
+            
+            {% if category.description %}
+            <p class="category-description">{{ category.description }}</p>
+            {% endif %}
+            
+            <div class="category-stats">
+                <span class="stat-item">
+                    <i class="fas fa-file-alt"></i>
+                    {{ posts|length }} article{{ posts|length|pluralize }}
+                </span>
+                <span class="stat-item">
+                    <i class="fas fa-layer-group"></i>
+                    {{ categories|length }} categor{{ categories|length|pluralize:"y,ies" }}
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Category Layout -->
+<section class="category-layout">
+    <div class="container">
+        <div class="category-grid">
+            <!-- Main Content -->
+            <main class="category-main">
+                <div class="section-header">
+                    <h2>Latest in {{ category.name }}</h2>
+                    <p>Discover our most recent articles in this category</p>
+                </div>
+
+                {% if posts %}
+                <div class="posts-grid">
+                    {% for post in posts %}
+                    <article class="post-card" data-scroll>
+                        <div class="post-image">
+                            <img src="{{ post.featured_image.url|default:'https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' }}" alt="{{ post.title }}">
+                            <div class="post-category">{{ post.category.name|default:"Printing" }}</div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-date">{{ post.publish_date|date:"M d, Y" }}</span>
+                                <span class="post-author">By {{ post.author }}</span>
+                                <span class="post-views">{{ post.views }} views</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                            </h3>
+                            <p class="post-excerpt">{{ post.excerpt|default:post.content|striptags|truncatewords:25 }}</p>
+                            <div class="post-footer">
+                                <a href="{{ post.get_absolute_url }}" class="read-more">
+                                    Read More <i class="fas fa-arrow-right"></i>
+                                </a>
+                                <div class="post-tags">
+                                    {% for tag in post.tags.all|slice:":2" %}
+                                    <span class="tag">#{{ tag.name }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="no-posts" data-scroll>
+                    <div class="no-posts-icon">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+                    <h3>No articles yet in {{ category.name }}</h3>
+                    <p>Check back later for new content in this category!</p>
+                    <a href="{% url 'blog:blog' %}" class="cta-button">
+                        Browse All Articles
+                    </a>
+                </div>
+                {% endif %}
+            </main>
+
+            <!-- Sidebar -->
+            <aside class="category-sidebar">
+                <!-- Categories List -->
+                <div class="sidebar-widget" data-scroll>
+                    <h3 class="widget-title">All Categories</h3>
+                    <div class="categories-list">
+                        {% for cat in categories %}
+                        <a href="{% url 'blog:blog_category' cat.slug %}" 
+                           class="category-item {% if cat.slug == category.slug %}active{% endif %}">
+                            <span class="category-name" style="color:white !important;">{{ cat.name }}</span>
+                            <span class="category-count">{{ cat.num_posts }}</span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Popular in Category -->
+                {% if posts %}
+                <div class="sidebar-widget" data-scroll>
+                    <h3 class="widget-title">Popular in {{ category.name }}</h3>
+                    <div class="popular-posts">
+                        {% for post in posts|slice:":3" %}
+                        <div class="popular-post">
+                            <div class="popular-image">
+                                <img src="{{ post.featured_image.url|default:'https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80' }}" alt="{{ post.title }}">
+                            </div>
+                            <div class="popular-content">
+                                <h4>
+                                    <a href="{{ post.get_absolute_url }}">{{ post.title|truncatewords:5 }}</a>
+                                </h4>
+                                <span class="post-date">{{ post.publish_date|date:"M d" }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Newsletter -->
+                <div class="sidebar-widget" data-scroll>
+                    <h3 class="widget-title">Stay Updated</h3>
+                    <div class="newsletter-box">
+                        <p>Get the latest {{ category.name }} articles delivered to your inbox</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Enter your email" class="newsletter-input">
+                            <button type="submit" class="newsletter-btn">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<!-- Related Categories -->
+{% if categories|length > 1 %}
+<section class="related-categories">
+    <div class="container">
+        <div class="section-header">
+            <h2>Explore Other Categories</h2>
+            <p>Discover more topics that might interest you</p>
+        </div>
+        
+        <div class="categories-grid">
+            {% for cat in categories %}
+            {% if cat.slug != category.slug %}
+            <a href="{% url 'blog:blog_category' cat.slug %}" class="category-card" data-scroll>
+                <div class="category-card-icon">
+                    <i class="fas fa-folder"></i>
+                </div>
+                <h3>{{ cat.name }}</h3>
+                <p>{{ cat.num_posts }} article{{ cat.num_posts|pluralize }}</p>
+                <span class="explore-link">Explore <i class="fas fa-arrow-right"></i></span>
+            </a>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<script>
+// Scroll animation implementation
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollElements = document.querySelectorAll('[data-scroll]');
+    
+    const elementInView = (el, dividend = 1) => {
+        const elementTop = el.getBoundingClientRect().top;
+        return (
+            elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+        );
+    };
+    
+    const displayScrollElement = (element) => {
+        element.classList.add('is-visible');
+    };
+    
+    const handleScrollAnimation = () => {
+        scrollElements.forEach((el, index) => {
+            if (elementInView(el, 1.2)) {
+                setTimeout(() => {
+                    displayScrollElement(el);
+                }, index * 150);
+            }
+        });
+    };
+    
+    // Initial check
+    handleScrollAnimation();
+    
+    // Listen for scroll events
+    window.addEventListener('scroll', handleScrollAnimation);
+});
+</script>
+
+
+
+{% endblock content %}

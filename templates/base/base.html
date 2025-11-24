@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Dynamic Title -->
+    <title>{% block title %}Dimma Printing – Beyond Printing{% endblock %}</title>
+
+    <!-- Dynamic Meta Description -->
+    <meta name="description" content="{% block description %}Professional printing services in Addis Ababa – brochures, books, packaging & more with over 30 years experience.{% endblock %}">
+
+    <!-- Dynamic Meta Keywords -->
+    <meta name="keywords" content="{% block meta_keywords %}Printing Ethiopia, Brochure Printing, Book Printing, Packaging Printing, Dimma Printing, Addis Ababa{% endblock %}">
+
+    <meta name="author" content="{% block meta_author %}Dimma Printing Plc{% endblock %}">
+
+    <!-- Open Graph & Twitter Tags (default, can be overridden) -->
+    {% block meta_tags %}
+        <meta property="og:title" content="{% block og_title %}Dimma Printing – Beyond Printing{% endblock %}">
+        <meta property="og:description" content="{% block og_description %}High-quality printing services in Ethiopia. Trusted by Hilton, Heineken, and top institutions.{% endblock %}">
+        <meta property="og:image" content="{% block og_image %}{% static 'images/seo-preview.jpg' %}{% endblock %}">
+        <meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
+        <meta property="og:type" content="website">
+
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{% block twitter_title %}Dimma Printing – Beyond Printing{% endblock %}">
+        <meta name="twitter:description" content="{% block twitter_description %}Delivering quality printing services with 30+ years of expertise.{% endblock %}">
+        <meta name="twitter:image" content="{% block twitter_image %}{% static 'images/seo-preview.jpg' %}{% endblock %}">
+
+        <!-- Canonical URL -->
+        <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    {% endblock %}
+
+    <!-- Default Schema Markup for Local Business -->
+    {% block schema %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "PrintingService",
+      "name": "Dimma Printing Plc",
+      "image": "{{ request.build_absolute_uri }}{% static 'images/seo-preview.jpg' %}",
+      "url": "{{ request.build_absolute_uri }}",
+      "telephone": "+251911224244",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Bole Road, Addis Ababa",
+        "addressLocality": "Addis Ababa",
+        "addressCountry": "Ethiopia"
+      },
+      "description": "Dimma Printing Plc. offers professional printing solutions in Addis Ababa – from brochures to books to packaging."
+    }
+    </script>
+    {% endblock %}
+
+    <!-- Fonts & Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Montserrat+Alternates:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/fav.png' %}" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- JS Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+
+
+<body>
+     <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+        <header class="transparent" id="header">
+
+            <div class="logo">
+                    <a href="/" class="logo-text"><img src="{% static 'images/logo.png' %}" alt="Logo" srcset="" height="90"></span></a>
+                </div>
+
+
+                <div class="logo">
+                    <button class="nav-toggle" id="navToggle">
+                        <!-- Hamburger icon (default state) -->
+                        <svg class="hamburger-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+  <defs>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="1" dy="1" stdDeviation="1.5" flood-color="black" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <rect x="2" y="6" width="80" height="1" rx="1" filter="url(#shadow)"/>
+  <rect x="2" y="11" width="20" height="1" rx="1" filter="url(#shadow)"/>
+</svg>
+
+                        <!-- Close icon (hidden by default) -->
+                        <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" style="display: none;">
+                            <path d="M18 6L6 18M6 6l12 12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+                
+            </header>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay">
+
+        
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">About Us</a></li>
+            <li class="nav-item"><a href="{% url 'projects' %}" class="nav-link">Portfolio</a></li>
+            <li class="nav-item"><a href="{% url 'blog:blog' %}" class="nav-link">Blog</a></li>
+        </ul>
+        {% load social_media_tags %}
+        {% get_social_media_links as social_links %}
+        {% for social in social_links %}
+
+        <div class="nav-socials">
+            <a href="{{ social.url }}" target="_blank" class="social-icon" aria-label="{{ social.get_platform_display }}"><i class="{{ social.icon_class }}"></i></a>
+        </div>
+        {% empty %}
+            <p class="no-social-links">No social media links available at the moment.</p>
+        {% endfor %}
+        
+    </div>
+
+
+
+        {% block content %}
+
+        {% endblock content %}
+
+        <!-- Loading Animation -->
+    <div class="loading-animation">
+        <div class="loading-spinner">
+            <div class="spinner-circle"></div>
+            <div class="spinner-circle"></div>
+            <div class="spinner-circle"></div>
+        </div>
+    </div>
+<!-- Updated Footer -->
+<footer>
+    <div class="footer-pattern"></div>
+    <div class="footer-content">
+        <div class="footer-info">
+            <h3>Dimma Printing</h3>
+            <p>Where quality meets creativity. Beyond printing since 1993.</p>
+        {% get_social_media_links as social_links %}
+        {% for social in social_links %}
+            <div class="footer-socials">
+                <a href="{{ social.url }}" target="_blank" aria-label="{{ social.get_platform_display }}"><i class="{{ social.icon_class }}"></i></a>
+            </div>
+        {% empty %}
+            <p class="no-social-links">No social media links available at the moment.</p>
+        {% endfor %}
+        </div>
+        
+        <div class="footer-info">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+                <li><a href="/"><i class="fas fa-chevron-right"></i> Home</a></li>
+                <li><a href="{% url 'about' %}"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                <li><a href="{% url 'projects' %}"><i class="fas fa-chevron-right"></i> Portfolio</a></li>
+                <li><a href="{% url 'blog:blog' %}"><i class="fas fa-chevron-right"></i> Blog</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-info">
+            <h3>Our Services</h3>
+            <ul class="footer-links">
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Offset Printing</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Digital Printing</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Large Format Printing</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Packaging Solutions</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Graphic Design</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-info">
+            <h3>Contact Us</h3>
+            <p><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</p>
+            <p><i class="fas fa-phone"></i> +251 911224244</p>
+            <p><i class="fas fa-envelope"></i> info@Dimmaprinting.com</p>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p style="color:white;">&copy; Dimma Printing. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="{% static 'js/base.js' %}"></script>
+    
+</body>
+</html>

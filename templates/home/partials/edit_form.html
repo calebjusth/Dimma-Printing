@@ -1,0 +1,65 @@
+{% load crispy_forms_tags %}
+
+<form id="editForm" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+</form>
+{% if section == 'sister-companies-item' or section == 'sister-companies-new' %}
+<script>
+// Convert services textarea to a more user-friendly format
+document.addEventListener('DOMContentLoaded', function() {
+    const servicesField = document.getElementById('id_services_text');
+    if (servicesField) {
+        // Replace textarea with a more user-friendly interface
+        const servicesContainer = document.createElement('div');
+        servicesContainer.className = 'services-editor';
+        
+        const services = servicesField.value.split('\n').filter(s => s.trim());
+        const inputContainer = document.createElement('div');
+        
+        services.forEach(service => {
+            const serviceItem = document.createElement('div');
+            serviceItem.className = 'service-item';
+            serviceItem.innerHTML = `
+                <input type="text" value="${service}" class="form-control mb-1">
+                <button type="button" class="btn btn-sm btn-danger remove-service">Remove</button>
+            `;
+            inputContainer.appendChild(serviceItem);
+        });
+        
+        const addButton = document.createElement('button');
+        addButton.type = 'button';
+        addButton.className = 'btn btn-sm btn-primary mt-2';
+        addButton.textContent = 'Add Service';
+        addButton.addEventListener('click', function() {
+            const newItem = document.createElement('div');
+            newItem.className = 'service-item';
+            newItem.innerHTML = `
+                <input type="text" class="form-control mb-1">
+                <button type="button" class="btn btn-sm btn-danger remove-service">Remove</button>
+            `;
+            inputContainer.appendChild(newItem);
+        });
+        
+        servicesContainer.appendChild(inputContainer);
+        servicesContainer.appendChild(addButton);
+        
+        servicesField.parentNode.replaceChild(servicesContainer, servicesField);
+        
+        // Handle form submission
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const serviceInputs = servicesContainer.querySelectorAll('.service-item input');
+            const services = Array.from(serviceInputs).map(input => input.value.trim()).filter(s => s);
+            
+            // Create a hidden textarea with the services
+            const hiddenTextarea = document.createElement('textarea');
+            hiddenTextarea.name = 'services_text';
+            hiddenTextarea.style.display = 'none';
+            hiddenTextarea.value = services.join('\n');
+            this.appendChild(hiddenTextarea);
+        });
+    }
+});
+</script>
+{% endif %}

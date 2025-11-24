@@ -1,0 +1,613 @@
+/* Updated index.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Montserrat Alternates', sans-serif;
+    font-weight: 400;
+    color: #000000;
+    line-height: 1.6;
+}
+
+
+:root {
+  --dark-bg: #f8f8f8;        /* softer black instead of pure dark */
+  --darker-bg: #c3c3c3;      /* used sparingly for footer/nav */
+  --accent: #e50914;         /* Netflix-style strong red */
+  --accent-light: #ff4d5a;   /* lighter red for hover states */
+  --text: #1a1a1a;   
+  --title:rgb(255, 255, 255) ;        /* off-white for body text */
+  --text-secondary: #2c2c2c; /* softer gray for less important text */
+  --card-bg: #39393a;        /* subtle dark gray instead of heavy black */
+  --border: rgba(255, 255, 255, 0.1); /* thin separators */
+  --transition: all 0.35s ease-in-out;
+}
+
+
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+/* Loading Animation */
+.loading-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--dark-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading-animation.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-spinner {
+    display: flex;
+    gap: 10px;
+}
+
+.spinner-circle {
+    width: 20px;
+    height: 20px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.spinner-circle:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.spinner-circle:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Gideon Roman', serif;
+    font-weight: 400;
+}
+
+/* Add to your existing CSS */
+.nav-toggle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-toggle svg {
+    width: 44px;
+    height: 44px;
+    transition: opacity 0.3s ease;
+}
+
+.hamburger-icon{
+    text-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
+
+}
+
+.hamburger-icon rect {
+    transition: transform 0.3s ease;
+}
+
+.close-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Optional: Add animation to the hamburger icon when active */
+.nav-toggle.active .hamburger-icon rect:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle.active .hamburger-icon rect:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.active .hamburger-icon rect:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Custom Cursor Styles */
+.cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+    mix-blend-mode: difference;
+}
+
+.cursor-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.3s ease-out;
+}
+
+/* Cursor states */
+.cursor.hover {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 0, 0, 0.8);
+}
+
+.cursor-follower.hover {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.cursor.click {
+    width: 15px;
+    height: 15px;
+    background: rgba(78, 205, 196, 0.8);
+}
+
+.cursor-follower.click {
+    width: 50px;
+    height: 50px;
+    border-color: #4ecdc4;
+    background: rgba(78, 205, 196, 0.1);
+}
+
+/* Hide cursor on mobile devices */
+@media (max-width: 768px) {
+    .cursor, .cursor-follower {
+        display: none;
+    }
+    
+    * {
+        cursor: auto !important;
+    }
+}
+
+/* Header Styles */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.4rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    transition: var(--transition);
+    background: transparent;
+
+}
+
+header.scrolled {
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.logo-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+span {
+    color: var(--accent);
+}
+
+.nav-toggle {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+    z-index: 1001;
+}
+
+.nav-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.cta-button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.cta-button:hover {
+    background: #ff521a;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 60, 0, 0.3);
+}
+
+/* Navigation Overlay */
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.98);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+
+.nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.close-button {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 2rem;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+    z-index: 1001;
+}
+
+.close-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(90deg);
+}
+
+.nav-menu {
+    list-style: none;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.nav-item {
+    margin: 1.5rem 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: var(--transition);
+}
+
+.nav-overlay.active .nav-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.nav-link {
+    color: var(--title);
+    text-decoration: none;
+    font-size: 2.2rem;
+    font-weight: 700;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+    transform: translateX(10px);
+}
+
+.nav-socials {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.social-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: var(--transition);
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.nav-overlay.active .social-icon {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.social-icon:hover {
+    background: var(--accent);
+    transform: translateY(-5px);
+}
+
+/* Main Content */
+main {
+    flex: 1;
+    padding: 8rem 2rem 4rem;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+}
+
+p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.placeholder {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 4rem 2rem;
+    margin: 3rem 0;
+}
+
+/* Footer Styles - Completely Redesigned */
+footer {
+    background: linear-gradient(to bottom, var(--darker-bg), #000);
+    padding: 5rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+}
+
+.footer-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--accent);
+    position: relative;
+    display: inline-block;
+}
+
+.footer-info h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+}
+
+.footer-info p {
+    color: var(--title);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.footer-links {
+    list-style: none;
+    margin-top: 1.5rem;
+}
+
+.footer-links li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+    color: var(--title);
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-links a:hover {
+    color: var(--accent);
+    transform: translateX(5px);
+}
+
+.footer-socials {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.footer-socials a {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-socials a:hover {
+    background: var(--accent);
+    transform: translateY(-5px);
+}
+
+.footer-newsletter {
+    position: relative;
+}
+
+.footer-newsletter input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    transition: var(--transition);
+}
+
+.footer-newsletter input:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.footer-newsletter button {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    background: var(--accent);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.footer-newsletter button:hover {
+    background: #ff521a;
+    transform: translateY(-2px);
+}
+
+.footer-bottom {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--title) !important;
+    font-size: 0.9rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.footer-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.03;
+    background-image: radial-gradient(var(--accent) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+}
+
+/* Animation Delays */
+.nav-item:nth-child(1) { transition-delay: 0.1s; }
+.nav-item:nth-child(2) { transition-delay: 0.2s; }
+.nav-item:nth-child(3) { transition-delay: 0.3s; }
+.nav-item:nth-child(4) { transition-delay: 0.4s; }
+.nav-item:nth-child(5) { transition-delay: 0.5s; }
+.nav-item:nth-child(6) { transition-delay: 0.6s; }
+
+.social-icon:nth-child(1) { transition-delay: 0.7s; }
+.social-icon:nth-child(2) { transition-delay: 0.8s; }
+.social-icon:nth-child(3) { transition-delay: 0.9s; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        padding: 1rem;
+    }
+    
+    .logo-text {
+        font-size: 1.5rem;
+    }
+    
+    main {
+        padding: 6rem 1rem 2rem;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .nav-link {
+        font-size: 1.8rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .footer-info h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .footer-socials {
+        justify-content: center;
+    }
+}

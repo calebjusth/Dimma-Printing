@@ -1,0 +1,201 @@
+{% extends '../base/base.html' %}
+{% load static %}
+{% block title %}About Us | Dimma Printing  | Our story of success {% endblock %}
+{% block meta_description %}Read our story of success for the past 30+ years{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+
+<!-- Floating Edit Mode Button (Only shows for staff users) -->
+{% if user.is_staff %}
+<button class="edit-mode-toggle" id="editModeToggle">
+    <i class="fas fa-pencil-alt"></i>
+    <span style="color:white !important;">Enter Edit Mode</span>
+</button>
+{% endif %}
+
+<!-- Updated About Hero Section -->
+<section class="about-hero editable-section">
+    {% if user.is_staff %}
+    <div class="section-edit-pen" data-section="hero">
+        <i class="fas fa-pencil-alt"></i>
+    </div>
+    {% endif %}
+    
+    <div class="hero-background" {% if hero.background_image %} style="background-image: url('{{ hero.background_image.url }}');" {% endif %}></div>
+    
+    <div class="container">
+        <div class="about-hero-content">
+            <div class="hero-text-content">
+                <h1 class="about-title">
+                    <span class="title-line" style="--delay: 0.2s; color: whitesmoke !important;">{{ hero.title_line_1 }}</span>
+                    <span class="title-line accent" style="--delay: 0.4s">{{ hero.title_line_2 }}</span>
+                </h1>
+                <p class="about-subtitle" style="--delay: 0.6s">{{ hero.subtitle }}</p>
+                
+                <!-- User Satisfaction Section -->
+                <div class="user-satisfaction">
+                    <div class="satisfaction-title">Trusted by</div>
+                    <div class="users-grid">
+                        <div class="user-avatars">
+                            <div class="user-avatar">
+                                <img src="{% static 'images/aaulogo.png' %}" alt="Happy Client" onerror="this.style.display='none'; this.parentNode.innerHTML='JD';">
+                            </div>
+                            <div class="user-avatar">
+                                <img src="{% static 'images/Dashen-Bank-Logo-Addis-Ababa-Ethiopia.png' %}" alt="Happy Client" onerror="this.style.display='none'; this.parentNode.innerHTML='AS';">
+                            </div>
+                            <div class="user-avatar">
+                                <img src="{% static 'images/fhi360_logo_ko_rgb.png' %}" alt="Happy Client" onerror="this.style.display='none'; this.parentNode.innerHTML='MJ';">
+                            </div>
+                            <div class="user-avatar">
+                                <img src="{% static 'images/IRWlogo.png' %}" alt="Happy Client" onerror="this.style.display='none'; this.parentNode.innerHTML='MJ';">
+                            </div>
+                        </div>
+                        <div class="satisfaction-rate">
+                            <div class="rating-stars">★★★★★</div>
+                            <div class="rating-text">98% Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+    
+    <div class="scroll-indicator" style="--delay: 1.2s">
+        <div class="scroll-line"></div>
+    </div>
+</section>
+
+<!-- Sister Companies Section -->
+<section class="sister-companies editable-section">
+    {% if user.is_staff %}
+    <div class="section-edit-pen" data-section="sister-companies">
+        <i class="fas fa-pencil-alt"></i>
+    </div>
+    {% endif %}
+    
+    <div class="container">
+        <div class="section-header">
+            <h2 data-scroll>Beyond Printing: Our Family of Companies</h2>
+            <p data-scroll>Dimma Printing works alongside specialized sister companies to deliver comprehensive creative solutions</p>
+        </div>
+        
+        <div class="companies-grid">
+            {% for company in companies %}
+            <div class="company-card" data-scroll>
+                <div class="company-icon">
+                    {{ company.icon_svg|safe }}
+                </div>
+                <h3>{{ company.name }}</h3>
+                <p>{{ company.description }}</p>
+                <ul>
+                    {% for service in company.services %}
+                    <li>{{ service }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="synergy-text" data-scroll>
+            <p>Together, we provide <span class="accent-text">holistic marketing, advertising, communication and event solutions</span> tailored to each client's unique needs.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Timeline Section -->
+<section class="timeline-section editable-section">
+    {% if user.is_staff %}
+    <div class="section-edit-pen" data-section="timeline">
+        <i class="fas fa-pencil-alt"></i>
+    </div>
+    {% endif %}
+    
+    <div class="container">
+        <div class="section-header">
+            <h2>Our Journey Through Time</h2>
+            <p>From humble beginnings to industry leaders</p>
+        </div>
+        
+        <div class="timeline">
+            {% for event in timeline_events %}
+            <div class="timeline-item" data-scroll>
+                <div class="timeline-content">
+                    <h3>{{ event.title }}</h3>
+                    <p>{{ event.description }}</p>
+                </div>
+                <div class="timeline-image">
+                    
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="values-section editable-section">
+    {% if user.is_staff %}
+    <div class="section-edit-pen" data-section="values">
+        <i class="fas fa-pencil-alt"></i>
+    </div>
+    {% endif %}
+    
+    <div class="container">
+        <div class="section-header">
+            <h2>Our Core Values</h2>
+            <p>The principles that guide everything we do</p>
+        </div>
+        
+        <div class="values-grid">
+            {% for value in values %}
+            <div class="value-card" data-scroll>
+                <div class="value-icon">{{ value.get_icon_display }}</div>
+                <h3>{{ value.title }}</h3>
+                <p>{{ value.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="about-cta editable-section">
+    {% if user.is_staff %}
+    <div class="section-edit-pen" data-section="cta">
+        <i class="fas fa-pencil-alt"></i>
+    </div>
+    {% endif %}
+    
+    <div class="container">
+        <div class="cta-content">
+            <h2>{{ cta.title }}</h2>
+            <p>{{ cta.description }}</p>
+            <a href="tel:{{ cta.phone_number }}" class="cta-button">{{ cta.button_text }} <i class="fa-solid fa-phone"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- Edit Modals -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-container" id="modalContainer">
+        <div class="modal-header">
+            <h3 id="modalTitle">Edit Section</h3>
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <!-- Form will be loaded here via AJAX -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn-secondary" id="modalCancel">Cancel</button>
+            <button class="btn-primary" id="modalSave">Save Changes</button>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/about.js' %}"></script>
+
+{% endblock %}

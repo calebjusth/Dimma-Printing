@@ -1,0 +1,211 @@
+{% extends '../base/base.html' %}
+{% load static %}
+{% block title %}Portfolio | Dimma Printing {% endblock %}
+{% block meta_description %}Check out some of our remarkable projects{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/projects.css' %}">
+<br><br><br><br><br><br>
+
+        <!-- Filter Controls -->
+    <div class="filter-controls">
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            {% for category in categories %}
+            <button class="filter-btn" data-filter="{{ category.slug }}">{{ category.name }}</button>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Projects Container -->
+    <div class="projects-container">
+        {% for project in projects %}
+        <section class="project-section" data-category="{{ project.category.slug }}">
+            <div class="project-content">
+                <div class="project-info">
+                    <span class="project-category">{{ project.category.name }}</span>
+                    <h2 class="project-title">{{ project.title }}</h2>
+                    {% if project.subtitle %}
+                    <p class="project-subtitle">{{ project.subtitle }}</p>
+                    {% endif %}
+                    <div class="project-description">
+                        {{ project.description|linebreaks }}
+                    </div>
+                    
+                    {% if project.client %}
+                    <div class="client-info">
+                        <p><strong>Client:</strong> {{ project.client.name }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Video Button (only show if project has video) -->
+                    {% if project.video and project.project_type != 'image' %}
+                    <button class="watch-video-btn" data-video-url="{{ project.video.url }}">
+                        <p>Watch Video</p
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    {% endif %}
+                    
+                    {% if project.testimonial %}
+                    <div class="testimonial">
+                        <p class="testimonial-text">{{ project.testimonial }}</p>
+                        <div class="testimonial-author">{{ project.testimonial_author }}</div>
+                        {% if project.testimonial_author_position %}
+                        <div class="testimonial-position">{{ project.testimonial_author_position }}</div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="project-media">
+                    {% if project.project_type == 'image' or project.project_type == 'both' %}
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-image">
+                        {% endif %}
+                    {% endif %}
+                    
+                    {% if project.project_type == 'video' and project.video %}
+                        <!-- Video thumbnail with play button overlay -->
+                        <div class="video-thumbnail" data-video-url="{{ project.video.url }}">
+                            <div class="video-thumbnail-overlay">
+                                <div class="play-button">
+                                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
+                                        <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                                    </svg>
+                                </div>
+                                <p>Click to play video</p>
+                            </div>
+                            {% if project.image %}
+                                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-image">
+                            {% else %}
+                                <div class="video-placeholder">
+                                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
+                                        <path d="M8 5V19L19 12L8 5Z" fill="var(--accent)"/>
+                                    </svg>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+        {% empty %}
+        <div class="no-projects">
+            <p>No projects to display at the moment.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-overlay"></div>
+        <div class="video-modal-content">
+            <button class="video-modal-close" id="closeVideoModal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="video-container">
+                <video id="modalVideo" controls>
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Intersection Observer for scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const projectSections = document.querySelectorAll('.project-section');
+            
+            const observerOptions = {
+                threshold: 0.2,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+            
+            projectSections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Filter functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectSectionsAll = document.querySelectorAll('.project-section');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    // Filter projects
+                    projectSectionsAll.forEach(section => {
+                        if (filterValue === 'all' || section.getAttribute('data-category') === filterValue) {
+                            section.style.display = 'flex';
+                        } else {
+                            section.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Video Modal functionality
+            const videoModal = document.getElementById('videoModal');
+            const modalVideo = document.getElementById('modalVideo');
+            const closeVideoModal = document.getElementById('closeVideoModal');
+            
+            // Function to open video modal
+            function openVideoModal(videoUrl) {
+                modalVideo.src = videoUrl;
+                videoModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+            
+            // Function to close video modal
+            function closeVideoModalFunc() {
+                videoModal.classList.remove('active');
+                modalVideo.pause();
+                modalVideo.src = '';
+                document.body.style.overflow = ''; // Re-enable scrolling
+            }
+            
+            // Add event listeners to video buttons
+            document.querySelectorAll('.watch-video-btn, .video-thumbnail').forEach(button => {
+                button.addEventListener('click', function() {
+                    const videoUrl = this.getAttribute('data-video-url');
+                    openVideoModal(videoUrl);
+                });
+            });
+            
+            // Close modal when clicking close button
+            closeVideoModal.addEventListener('click', closeVideoModalFunc);
+            
+            // Close modal when clicking overlay
+            videoModal.addEventListener('click', function(e) {
+                if (e.target === this || e.target.classList.contains('video-modal-overlay')) {
+                    closeVideoModalFunc();
+                }
+            });
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                    closeVideoModalFunc();
+                }
+            });
+        });
+    </script>
+
+</body>
+
+{% endblock content %}

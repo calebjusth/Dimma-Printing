@@ -1,0 +1,388 @@
+{% extends '../base/base.html' %}
+{% load static %}
+{% block title %}Home | Dimma Printing {% endblock %}
+{% block meta_description %}{% endblock %}
+{% block content %}
+{% load cache %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+    <!-- Hero Section HTML -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="color-reveal" id="colorReveal"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-word" style="animation-delay: 0.8s">Dimma</span>
+                <span class="title-word" style="animation-delay: 1.0s">Printing - </span>
+                <span class="title-word" style="animation-delay: 1.2s">Beyond</span>
+                <span class="title-word" style="animation-delay: 1.4s">Printing</span>
+            </h1>
+            <p class="hero-subtitle"></p>
+        </div>
+    </section>
+
+
+
+<!-- About Us Highlight Section -->
+<section class="about-highlight" id="about">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-text">
+                <h1 class="section-title" id="black" style="color: black !important;" data-scroll>Three Decades of Printing Excellence</h1>
+                <p class="section-subtitle" id="black" data-scroll>Since 1993, Dimma Printing has been at the forefront of Ethiopia's printing industry evolution</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-item" data-scroll data-scroll-delay="0.1">
+                        <div class="stat-number" data-count="30">0</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-item" data-scroll data-scroll-delay="0.2">
+                        <div class="stat-number" data-count="1000">0</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-item" data-scroll data-scroll-delay="0.3">
+                        <div class="stat-number" data-count="500">0</div>
+                        <div class="stat-label">Clients Served</div>
+                    </div>
+                </div>
+                
+                <p class="about-desc" data-scroll>
+                    From pioneering computer-based graphic design and color separation in the 1990s, 
+                    we pride ourselves as the catalysts who transformed traditional printing to meet 
+                    21st century standards in Ethiopia.
+                </p>
+                
+                <div class="cta-container" data-scroll>
+                    <a href="/about" class="cta-button">
+                        <span style="color:white;">Discover Our Story</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="about-visual">
+                <div class="image-container" data-scroll>
+                    <div class="main-image"> 
+                        <img src="{% static 'images/test1.png' %}" alt="Dimma Printing workspace"  data-scroll-delay="0.4">
+                    </div>
+                    
+                    </div>
+                    <div class="floating-element" data-scroll data-scroll-delay="1.4">
+                        <div class="floating-card">
+                            <span class="card-icon"><i class="fa-solid fa-bolt"></i></span>
+                            <h4>Fast <span>Turnaround</span></h4>
+                            <p>Efficient without compromising quality</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="why-choose-us" id="why-choose-us">
+    <div class="parallax-background">
+        <div class="parallax-image"></div>
+    </div>
+    
+    <div class="container">
+        <div class="section-header" data-scroll>
+            <h2 class="section-title" id="black"><span>Why</span> Choose Us?</h2>
+            <p class="section-subtitle" id="black">Excellence in every detail, innovation in every project</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card" data-scroll data-scroll-delay="0.1">
+                <div class="feature-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3>Quality You Can Trust</h3>
+                <p>Our knowledgeable team and state-of-the-art printing technology ensures vibrant colors and crisp details in every project.</p>
+            </div>
+            
+            <div class="feature-card" data-scroll data-scroll-delay="0.2">
+                <div class="feature-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 11H5M14 7H8M16 15H8M12 3V1M12 3C15.866 3 19 6.13401 19 10C19 13.866 15.866 17 12 17M12 3C8.13401 3 5 6.13401 5 10C5 13.866 8.13401 17 12 17M12 17V21" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3>Fast Turnaround</h3>
+                <p>We understand the importance of deadlines so we work around the clock efficiently without compromising on quality.</p>
+            </div>
+            
+            <div class="feature-card" data-scroll data-scroll-delay="0.3">
+                <div class="feature-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 8H19M19 8H21M19 8V6M19 8V10M12 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V14M12 5C12 3.89543 12.8954 3 14 3H16.1716C16.702 3 17.2107 3.21071 17.5858 3.58579L20.4142 6.41421C20.7893 6.78929 21 7.29799 21 7.82843V10M12 5C12 6.10457 12.8954 7 14 7H16.5M15 14C15 15.6569 13.6569 17 12 17C10.3431 17 9 15.6569 9 14C9 12.3431 10.3431 11 12 11C13.6569 11 15 12.3431 15 14Z" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3>Diverse Services</h3>
+                <p>From business cards and brochures to banners and custom packaging, we offer a wide range of printing solutions.</p>
+            </div>
+            
+            <div class="feature-card" data-scroll data-scroll-delay="0.4">
+                <div class="feature-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 8C17 10.7614 14.7614 13 12 13C9.23858 13 7 10.7614 7 8M12 17C11.2044 17 10.4413 16.6839 9.87868 16.1213C9.31607 15.5587 9 14.7956 9 14M5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21Z" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3>Personalized Service</h3>
+                <p>Our dedicated team is here to guide you through the entire process, ensuring your vision comes to life exactly as imagined.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="portfolio-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Our Creative Excellence</h2>
+            <p class="section-subtitle">Where innovation meets precision in every project</p>
+        </div>
+        
+        <!-- Portfolio Filters -->
+        <div class="portfolio-filters">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="commercial">Commercial Printing</button>
+            <button class="filter-btn" data-filter="packaging">Packaging</button>
+            <button class="filter-btn" data-filter="branding">Branding</button>
+            <button class="filter-btn" data-filter="promotional">Promotional</button>
+        </div>
+        
+        <!-- Portfolio Grid -->
+        <div class="portfolio-grid">
+            <!-- Large Featured Project -->
+             {% for p in projects %}
+            <div class="portfolio-item featured" data-type="commercial">
+                <div class="portfolio-card">
+                    <div class="portfolio-media">
+                        <img src="{{p.image.url}}" alt="High-End Commercial Printing" class="portfolio-image">
+                        <div class="project-badge">Featured</div>
+                        <div class="portfolio-overlay">
+                            <div class="overlay-content">
+                                <h3 class="project-title">{{p.title}}</h3>
+                                <p class="project-subtitle">{{p.description}}</p>
+                                <button class="view-project-btn" data-project-id="1">
+                                    <a href="{% url 'projects' %} " style="color:black !important;"><span style="color:black !important;">Explore Project</span>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%  endfor %}
+
+            <!-- Medium Project 1 -->
+            <div class="portfolio-item" data-type="packaging">
+                <div class="portfolio-card">
+                    <div class="portfolio-media">
+                        <img src="{% static 'images/test4.jpg' %}" alt="Luxury Packaging" class="portfolio-image">
+                        <div class="portfolio-overlay">
+                            <div class="overlay-content">
+                                <h3 class="project-title">Mechines</h3>
+                                <button class="view-project-btn" data-project-id="2">
+                                    <span>View Details</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-meta">
+                            <span class="project-category">Printing and Publishing</span>
+                            
+                        </div>
+                        <h3 class="project-title">Tools</h3>
+                        <p class="project-description">Here is an inside look into our machines</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medium Project 2 -->
+            <div class="portfolio-item" data-type="branding">
+                <div class="portfolio-card">
+                    <div class="portfolio-media">
+                        <img src="{% static 'images/test1.png' %}" alt="Corporate Branding" class="portfolio-image">
+                        <div class="portfolio-overlay">
+                            <div class="overlay-content">
+                                <h3 class="project-title">brochures Suite</h3>
+                                <button class="view-project-btn" data-project-id="3">
+                                    <span>View Details</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-meta">
+                            <span class="project-category">Printing</span>
+                        </div>
+                        <h3 class="project-title">Complete Brand Identity</h3>
+                        <p class="project-description">brochures Suite and marketing materials</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Small Project 1 -->
+            <div class="portfolio-item small" data-type="publishing">
+                <div class="portfolio-card">
+                    <div class="portfolio-media">
+                        <img src="{% static 'images/Calender.jpg' %}" alt="Calendar Printing" class="portfolio-image">
+                        <div class="portfolio-overlay">
+                            
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h4 class="project-title">Custom Printed Calendars</h4>
+                        <span class="project-category">Brand & Promotional Printing</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Small Project 2 -->
+            <div class="portfolio-item small" data-type="educational">
+                <div class="portfolio-card">
+                    <div class="portfolio-media">
+                        <img src="{% static 'images/books.jpg' %}" alt="Educational Book Printing" class="portfolio-image">
+                        <div class="portfolio-overlay">
+                            
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h4 class="project-title">Textbook & Exercise Book Printing</h4>
+                        <span class="project-category">Educational Publishing</span>
+                    </div>
+                </div>
+            </div>
+
+
+                        <!-- Small Project 3 -->
+            <div class="portfolio-item small" data-type="branding">
+                <div class="portfolio-card">
+                    <div class="portfolio-media">
+                        <img src="{% static 'images/outlets.jpg' %}" alt="Outlet Branding" class="portfolio-image">
+                        <div class="portfolio-overlay">
+                            
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h4 class="project-title">Outlet Branding & Signage</h4>
+                        <span class="project-category">Retail & Commercial</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- Load More Button -->
+        <div class="load-more-container">
+            <a class="load-more-btn" href="{% url "projects" %}" style="color: white !important;">
+                Discover More Projects
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 5V19M12 19L5 12M12 19L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Project Modal -->
+    <div class="project-modal" id="projectModal">
+        <div class="modal-content">
+            <button class="modal-close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="modal-body">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+    <!-- Client Logos Section -->
+<section class="clients-section">
+    <div class="container">
+        <h2 class="clients-title"><span>Trusted</span> By Industry Leaders</h2>
+        <div class="clients-marquee">
+            <div class="clients-track">
+                {% for c in clients %}
+                <!-- First set of logos -->
+                <div class="client-logo">
+                    <img src="{{c.logo.url}}" alt="{{c.name}}">
+                </div>
+                {% endfor %}
+                
+                <!-- Duplicated set for seamless looping -->
+                {% for c in clients %}
+                
+                <div class="client-logo">
+                    <img src="{{c.logo.url}}" alt="{{c.name}}">
+                </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Blog Section -->
+{% cache 3600 latest_blogs_section %}
+<section class="blog-section" id="blog">
+    <div class="container">
+        <div class="section-header">
+            <h2>From Our Blog</h2>
+            <p>Insights, trends, and inspiration from the world of printing and design</p>
+            <a href="{% url 'blog:blog' %}" class="view-all">View All Articles <span>&rarr;</span></a>
+        </div>
+        
+        <div class="blog-grid">
+            {% for post in latest_blogs %}
+            <article class="blog-card {% if forloop.first %}featured{% endif %}" data-scroll>
+                <div class="blog-image">
+                    {% if post.featured_image %}
+                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                    {% else %}
+                        <img src="{% static 'images/default-blog.jpg' %}" alt="{{ post.title }}">
+                    {% endif %}
+                    {% if post.category %}
+                        <div class="blog-category">{{ post.category.name }}</div>
+                    {% endif %}
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">{{ post.publish_date|date:"F d, Y" }}</span>
+                        <span class="blog-read-time">{{ post.content|wordcount|divisibleby:200 }} min read</span>
+                    </div>
+                    <h3 class="blog-title">{{ post.title }}</h3>
+                    <p class="blog-excerpt">{{ post.excerpt|default:post.content|truncatewords:25 }}</p>
+                    <a href="{{ post.get_absolute_url }}" class="blog-link">Read More</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endcache %}
+
+
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock content %}

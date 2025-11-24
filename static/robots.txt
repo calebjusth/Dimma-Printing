@@ -1,0 +1,34 @@
+# robots.txt
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://www.yourdomain.com/sitemap.xml
+
+# Directories to exclude from crawling
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /ajax/
+Disallow: /api/
+Disallow: /private/
+
+# Files to exclude
+Disallow: /*.php$
+Disallow: /*.js$
+Disallow: /*.css$
+
+# Allow media files
+Allow: /media/
+Allow: /static/
+
+# Crawl-delay for respectful crawling (adjust based on your server capacity)
+Crawl-delay: 1
+
+# Specific rules for search engines (optional)
+User-agent: Googlebot
+Allow: .pdf$
+Allow: .doc$
+Allow: .xls$
+
+User-agent: Bingbot
+Crawl-delay: 2
